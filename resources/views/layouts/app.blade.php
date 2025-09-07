@@ -29,6 +29,8 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('trains.index') }}">Trains</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('itineraires.index') }}">Itinéraires</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('reservations.index') }}">Réservations</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('rapports.jour') }}">Recette</a></li>
+
             </ul>
         </div>
     </div>

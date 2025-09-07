@@ -5,6 +5,7 @@ use App\Http\Controllers\TrainController;
 use App\Http\Controllers\ItineraireController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\RapportController;
 
 
 /*
@@ -30,3 +31,6 @@ Route::get('/places/{id}', [PlaceController::class, 'index']);
 
 Route::get('trains/{train}/places', [PlaceController::class, 'index'])->name('places.index');
 Route::patch('places/{place}', [PlaceController::class, 'update'])->name('places.update');
+Route::get('rapports/jour', [RapportController::class, 'recettesParJour'])->name('rapports.jour');
+
+
