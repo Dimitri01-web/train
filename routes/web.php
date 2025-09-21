@@ -22,9 +22,11 @@ use App\Http\Controllers\RapportController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('trains', TrainController::class);
+Route::resource('trains', TrainController::class)->except(['show']);
+Route::get('trains/search', [TrainController::class, 'search'])->name('trains.search');
 Route::resource('itineraires', ItineraireController::class);
-Route::resource('reservations', ReservationController::class);
+Route::resource('reservations', ReservationController::class)->except(['show']);
+Route::get('/reservations/search', [ReservationController::class, 'search'])->name('reservations.search');
 Route::resource('places', PlaceController::class);
 Route::get('/places/{id}', [PlaceController::class, 'index']);
 

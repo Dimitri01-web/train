@@ -14,16 +14,11 @@
     </div>
 @else
 {{-- Formulaire de recherche --}}
-    <form action="" method="GET" class="mb-3">
-        <div class="input-group">
-            <input type="text"
-                   name="q"
-                   class="form-control"
-                   placeholder="Rechercher par design"
-                   value="{{ old('q', $q ?? '') }}">
-            <button class="btn btn-primary">Rechercher</button>
-        </div>
-    </form>
+    <form action="{{ route('trains.search') }}" method="GET" class="mb-3 d-flex">
+    <input type="text" name="query" value="{{ $query ?? '' }}" class="form-control me-2" placeholder="Rechercher par design...">
+    <input type="number" name="places" value="{{ $placesLibresMin ?? '' }}" class="form-control me-2" placeholder="Places libres min" min="0">
+    <button type="submit" class="btn btn-outline-primary">Rechercher</button>
+</form>
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>

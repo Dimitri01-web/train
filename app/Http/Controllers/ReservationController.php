@@ -16,7 +16,8 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::with(['train', 'itineraire'])->get();
-        return view('reservations.index', compact('reservations'));
+        $trains = Train::all();
+        return view('reservations.index', compact('reservations','trains'));
     }
 
     /**
@@ -90,4 +91,29 @@ class ReservationController extends Controller
 
         return redirect()->route('reservations.index')->with('success', 'Réservation annulée et place libérée.');
     }
+
+    public function search(Request $request)
+{
+    $nomVoyageur = $request->input('voyageur');
+    $trainId = $request->input('train');
+    $dateReservation = $request->input('date');
+
+    $reservations = Reservation::with(['train', 'itineraire'])
+        ->when($nomVoyageur, function($q) use ($nomVoyageur) {
+            $q->where('nomvoyageur', 'LIKE', "%$nomVoyageur%");
+        })
+        ->when($trainId, function($q) use ($trainId) {
+            $q->where('train_id', $trainId);
+        })
+        ->when($dateReservation, function($q) use ($dateReservation) {
+            $q->whereDate('date_reservation', $dateReservation);
+        })
+        ->get();
+
+    $trains = Train::all();
+
+    return view('reservations.index', compact('reservations', 'nomVoyageur', 'trainId', 'dateReservation', 'trains'));
+}
+
+
 }

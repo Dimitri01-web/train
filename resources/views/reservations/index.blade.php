@@ -13,6 +13,28 @@
         Aucune réservation effectuée pour le moment.
     </div>
 @else
+<form action="{{ route('reservations.search') }}" method="GET" class="mb-3 row g-2">
+    <div class="col-md-4">
+        <input type="text" name="voyageur" value="{{ $nomVoyageur ?? '' }}" class="form-control" placeholder="Nom du voyageur">
+    </div>
+    <div class="col-md-3">
+        <select name="train" class="form-select">
+            <option value="">-- Train --</option>
+            @foreach($trains as $train)
+                <option value="{{ $train->id }}" {{ ($trainId ?? '') == $train->id ? 'selected' : '' }}>
+                    {{ $train->design }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="date" value="{{ $dateReservation ?? '' }}" class="form-control">
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Rechercher</button>
+    </div>
+</form>
+
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>

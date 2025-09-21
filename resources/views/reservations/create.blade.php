@@ -15,7 +15,7 @@
         <label>Itinéraire</label>
         <select name="itineraire_id" class="form-control" required>
             @foreach($itineraires as $itineraire)
-            <option value="{{ $itineraire->id }}">{{ $itineraire->villedepart }} → {{ $itineraire->villearrivee }} ({{ $itineraire->frais }} €)</option>
+            <option value="{{ $itineraire->id }}">{{ $itineraire->villedepart }} → {{ $itineraire->villearrivee }} ({{ $itineraire->frais }}) Ar</option>
             @endforeach
         </select>
     </div>

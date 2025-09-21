@@ -13,15 +13,34 @@ class TrainController extends Controller
      */
     public function index()
     {
-        // On récupère tous les trains avec le nombre de places libres
-        $trains = Train::withCount([
+         //On récupère tous les trains avec le nombre de places libres
+         $trains = Train::withCount([
             'places as places_disponibles' => function ($query) {
                 $query->where('occupation', false);
             }
         ])->get();
 
-        return view('trains.index', compact('trains'));
+       return view('trains.index', compact('trains'));
     }
+
+    public function search(Request $request)
+{
+    $query = $request->input('query'); // recherche par design
+    $placesLibresMin = $request->input('places_libres'); // nombre minimum de places libres
+
+    // Requête Eloquent
+    $trains = Train::withCount(['places as places_disponibles' => function($q) {
+        $q->where('occupation', false);
+    }])
+    ->when($query, function($q) use ($query) {
+        $q->where('design', 'LIKE', "%$query%");
+    })
+    ->when($placesLibresMin, function($q) use ($placesLibresMin) {
+        $q->having('places_disponibles', '>=', $placesLibresMin);
+    })->get();
+
+    return view('trains.index', compact('trains', 'query', 'placesLibresMin'));
+}
 
     /**
      * Afficher le formulaire de création d’un train.
@@ -126,4 +145,5 @@ class TrainController extends Controller
 
         return redirect()->route('trains.index')->with('success', 'Train supprimé.');
     }
+
 }
