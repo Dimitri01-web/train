@@ -9,7 +9,7 @@
         <tr>
             <th>Date</th>
             <th>Train</th>
-            <th>Total recettes (€)</th>
+            <th>Total recettes (Ar)</th>
         </tr>
     </thead>
     <tbody>

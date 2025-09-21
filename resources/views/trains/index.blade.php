@@ -13,6 +13,17 @@
         Aucun train enregistré pour le moment.
     </div>
 @else
+{{-- Formulaire de recherche --}}
+    <form action="" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text"
+                   name="q"
+                   class="form-control"
+                   placeholder="Rechercher par design"
+                   value="{{ old('q', $q ?? '') }}">
+            <button class="btn btn-primary">Rechercher</button>
+        </div>
+    </form>
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>
