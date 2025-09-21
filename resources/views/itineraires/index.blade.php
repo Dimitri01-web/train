@@ -13,6 +13,23 @@
         Aucun itinéraire enregistré pour le moment.
     </div>
 @else
+<form action="{{ route('itineraires.search') }}" method="GET" class="mb-3 row g-2">
+    <div class="col-md-3">
+        <input type="text" name="villedepart" value="{{ $villeDepart ?? '' }}" class="form-control" placeholder="Ville de départ">
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="villearrivee" value="{{ $villeArrivee ?? '' }}" class="form-control" placeholder="Ville d'arrivée">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="frais_min" value="{{ $fraisMin ?? '' }}" class="form-control" placeholder="Frais min">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="frais_max" value="{{ $fraisMax ?? '' }}" class="form-control" placeholder="Frais max">
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Rechercher</button>
+    </div>
+</form>
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>

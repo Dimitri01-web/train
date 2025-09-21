@@ -77,4 +77,30 @@ class ItineraireController extends Controller
 
         return redirect()->route('itineraires.index')->with('success', 'Itinéraire supprimé avec succès.');
     }
+
+    public function search(Request $request)
+{
+    $villeDepart = $request->input('villedepart');
+    $villeArrivee = $request->input('villearrivee');
+    $fraisMin = $request->input('frais_min');
+    $fraisMax = $request->input('frais_max');
+
+    $itineraires = \App\Models\Itineraire::query()
+        ->when($villeDepart, function($q) use ($villeDepart) {
+            $q->where('villedepart', 'LIKE', "%{$villeDepart}%");
+        })
+        ->when($villeArrivee, function($q) use ($villeArrivee) {
+            $q->where('villearrivee', 'LIKE', "%{$villeArrivee}%");
+        })
+        ->when($fraisMin, function($q) use ($fraisMin) {
+            $q->where('frais', '>=', $fraisMin);
+        })
+        ->when($fraisMax, function($q) use ($fraisMax) {
+            $q->where('frais', '<=', $fraisMax);
+        })
+        ->get();
+
+    return view('itineraires.index', compact('itineraires', 'villeDepart', 'villeArrivee', 'fraisMin', 'fraisMax'));
+}
+
 }

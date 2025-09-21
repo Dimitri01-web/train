@@ -77,8 +77,7 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOrFail($id);
 
-        // Si tu as une relation directe place_id dans Reservation, tu peux retrouver la place exacte.
-        // Ici, si non, on libère juste une place occupée au hasard dans le train (option simple) :
+
         $placeOccupee = Place::where('train_id', $reservation->train_id)
                               ->where('occupation', true)
                               ->first();
