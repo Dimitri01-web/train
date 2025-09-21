@@ -70,6 +70,38 @@ class ReservationController extends Controller
         return redirect()->route('reservations.index')->with('success', 'Réservation effectuée avec succès !');
     }
 
+    public function edit($id)
+{
+    $reservation = Reservation::findOrFail($id);
+    $trains = \App\Models\Train::all();
+    $itineraires = \App\Models\Itineraire::all();
+
+    return view('reservations.edit', compact('reservation', 'trains', 'itineraires'));
+}
+
+public function update(Request $request, $id)
+{
+    // Validation des champs
+    $validated = $request->validate([
+        'nomvoyageur'    => 'required|string|max:255',
+        'train_id'       => 'required|exists:trains,id',
+        'itineraire_id'  => 'required|exists:itineraires,id',
+        'date_reservation' => 'required|date',
+    ]);
+
+    // On récupère la réservation
+    $reservation = Reservation::findOrFail($id);
+
+    // Mise à jour avec les données validées
+    $reservation->update($validated);
+
+    // Redirection avec message de succès
+    return redirect()
+        ->route('reservations.index')
+        ->with('success', 'Réservation mise à jour avec succès');
+}
+
+
     /**
      * Annule une réservation (libère la place).
      */

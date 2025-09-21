@@ -46,7 +46,7 @@
             <td>{{ $itineraire->id }}</td>
             <td>{{ $itineraire->villedepart }}</td>
             <td>{{ $itineraire->villearrivee }}</td>
-            <td>{{ number_format($itineraire->frais, 2, ',', ' ') }} €</td>
+            <td>{{ number_format($itineraire->frais, 2, ',', ' ') }} Ar</td>
             <td>
                 <a href="{{ route('itineraires.edit', $itineraire->id) }}" class="btn btn-sm btn-warning">Modifier</a>
                 <form action="{{ route('itineraires.destroy', $itineraire->id) }}" method="POST" class="d-inline"

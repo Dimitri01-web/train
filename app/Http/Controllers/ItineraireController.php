@@ -85,7 +85,7 @@ class ItineraireController extends Controller
     $fraisMin = $request->input('frais_min');
     $fraisMax = $request->input('frais_max');
 
-    $itineraires = \App\Models\Itineraire::query()
+    $itineraires = Itineraire::query()
         ->when($villeDepart, function($q) use ($villeDepart) {
             $q->where('villedepart', 'LIKE', "%{$villeDepart}%");
         })

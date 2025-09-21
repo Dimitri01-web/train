@@ -61,6 +61,7 @@
             <td>{{ \Carbon\Carbon::parse($reservation->date_reservation)->format('d/m/Y') }}</td>
             <td>{{ $reservation->nomvoyageur }}</td>
             <td>
+                <a href="{{ route('reservations.edit', $reservation->id) }}" class="btn btn-sm btn-warning">Modifier</a>
                 <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" class="d-inline"
                       onsubmit="return confirm('Confirmer l\'annulation de cette réservation ?');">
                     @csrf
